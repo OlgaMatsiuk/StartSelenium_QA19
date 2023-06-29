@@ -1,0 +1,54 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.util.List;
+
+public class TableTest {
+    WebDriver wd;
+
+    @BeforeMethod
+    public void init(){
+        wd=new ChromeDriver();
+        wd.navigate().to("https://www.w3schools.com/css/css_table.asp");
+
+    }
+
+
+    @Test
+    public void testCss(){
+        WebElement germany = wd.findElement(By.cssSelector("table#customers tr:nth-child(7) td:last-child"));
+        String text = germany.getText();
+        Assert.assertEquals(text, "Germany");
+
+        List<WebElement> elementsRows = wd.findElements(By.cssSelector("#customers tbody tr"));
+        int amountRows = elementsRows.size();
+        System.out.println(amountRows);
+
+        List<WebElement> elementsColumns = wd.findElements(By.cssSelector("#customers tbody tr th"));
+        int amountColumns = elementsColumns.size();
+        System.out.println(amountColumns);
+
+        WebElement elementRow3 = wd.findElement(By.cssSelector("#customers tbody tr:nth-child(3)"));
+
+        WebElement elementColumnLast = wd.findElement(By.cssSelector("#customers tbody tr th:last-child"));
+
+        
+
+
+    }
+
+
+    @AfterMethod
+    public void tearDown(){
+        wd.quit();
+    }
+
+
+
+}
